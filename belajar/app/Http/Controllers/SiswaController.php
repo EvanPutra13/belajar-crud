@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
 use Illuminate\Http\Request;
+
 
 class SiswaController extends Controller
 {
@@ -12,7 +14,9 @@ class SiswaController extends Controller
     public function index()
     {
         $siswas = Siswa::all();
-        return view('siswa.index',compact('siswa'));
+        // return view('siswa.index',compact('siswa'));
+        return response()->json($siswas);
+
     }
 
     /**
@@ -29,7 +33,7 @@ class SiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate ([
-            'nis'=> 'required|unique:siswas,nis',
+            'nis'=> 'required|unique:siswa,nis',
             'nama' =>'required',
             'kelas' =>'required',
             'id_jurusan'=>'required',
@@ -37,15 +41,19 @@ class SiswaController extends Controller
 
 
         ]);
-        siswa::create($request->all());
-        return redirect() -> route('siswa.index')->with('success','siswa berhasil ditambahkan');
+        $siswa = Siswa::create($request->all());
+        // return redirect() -> route('siswa.index')->with('success','siswa berhasil ditambahkan');
+        return response()->json($siswa);
     }
     /**
      * Display the specified resource.
      */
-    public function show(Siswa $siswa)
+    public function show(Siswa $id)
     {
-        return view('siswa.show',compact('siswa'));
+        
+        $siswa = Siswa::findOrfail($id);
+        // return view('siswa.show',compact('siswa'));
+        return response()->json($siswa);
     }
 
     /**
@@ -68,9 +76,8 @@ class SiswaController extends Controller
             'angkatan' => 'required|numeric',
         ]);
         $siswa->update($request->all());
-
-return redirect()->route('siswa.index')
-->with('success', 'Siswa updated successfully');
+        // return redirect()->route('siswa.index')->with('success', 'Siswa updated successfully');
+        return response()->json($siswa);
     }
 
     /**
@@ -78,8 +85,8 @@ return redirect()->route('siswa.index')
      */
     public function destroy(Siswa $id)
     {
-        $siswa->delete();
-        return redirect()->route('siswa.index')
-->with('success', 'Siswa deleted successfully');
+        $siswa = Siswa::destroy($id);
+        // return redirect()->route('siswa.index')->with('success', 'Siswa deleted successfully');
+        return response()->json($siswa);
     }
 }
