@@ -51,7 +51,7 @@ class SiswaController extends Controller
     public function show(Siswa $id)
     {
         
-        $siswa = Siswa::findOrfail($id);
+        $siswa = Siswa::find($id);
         // return view('siswa.show',compact('siswa'));
         return response()->json($siswa);
     }
@@ -67,14 +67,15 @@ class SiswaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Siswa $siswa)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_siswa' => 'required',
+            'nama' => 'required',
             'kelas' => 'required',
+            'id_jurusan' => 'required',
             'jk' => 'required',
-            'angkatan' => 'required|numeric',
         ]);
+        $siswa = Siswa::find($id);
         $siswa->update($request->all());
         // return redirect()->route('siswa.index')->with('success', 'Siswa updated successfully');
         return response()->json($siswa);
@@ -83,7 +84,7 @@ class SiswaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Siswa $id)
+    public function destroy($id)
     {
         $siswa = Siswa::destroy($id);
         // return redirect()->route('siswa.index')->with('success', 'Siswa deleted successfully');

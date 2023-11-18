@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('barang', function (Blueprint $table) {
             $table->string ('Kode_barang')-> primary();
             $table->string ('Nama_barang');
-            $table->number ('Harga');
+            $table->integer ('Harga');
             $table->string ('jumlah');
             $table->string ('merek');
 
