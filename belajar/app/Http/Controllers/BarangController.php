@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\barang;
 use Illuminate\Http\Request;
+
 
 class BarangController extends Controller
 {
@@ -11,8 +13,10 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $barang = Barang::all();
-        return view('barang.index',compact('barang'));
+        $barang = barang::all();
+        // return view('barang.index',compact('barang'));
+        return response()->json($barang);
+
     }
 
     /**
@@ -29,7 +33,7 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $request->validate ([
-            'Kode_barang'=> 'required|unique:Nama_barang,Nama_barang',
+            'Kode_barang'=> 'required|unique:Kode_barang,Nama_barang',
             'Nama_barang' =>'required',
             'Harga' =>'required',
             'jumlah'=>'required',
@@ -37,21 +41,25 @@ class BarangController extends Controller
 
 
         ]);
-        barang::create($request->all());
-        return redirect() -> route('barang.index')->with('success','barang berhasil ditambahkan');
+        $barang = barang::create($request->all());
+        // return redirect() -> route('siswa.index')->with('success','siswa berhasil ditambahkan');
+        return response()->json($barang);
     }
     /**
      * Display the specified resource.
      */
-    public function show(Barang $barang)
+    public function show(barang $id)
     {
-        return view('barang.show',compact('barang'));
+        
+        $barang = barang::find($id);
+        // return view('siswa.show',compact('siswa'));
+        return response()->json($barang);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Barang $barang)
+    public function edit(barang $barang)
     {
         return view('barang.edit',compact('barang'));
     }
@@ -59,28 +67,28 @@ class BarangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Barang $Barang)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_barang' => 'required',
-            'kode_barang' => 'required',
-            'harga' => 'required|numeric',
+            'Kode_barang' => 'required',
+            'Nama_barang' => 'required',
+            'harga' => 'required',
+            'jumlah' => 'required',
             'merek' => 'required',
-            'jumlah' => 'required|numeric',
         ]);
-        $siswa->update($request->all());
-
-return redirect()->route('barang.index')
-->with('success', 'Siswa updated successfully');
+        $barang = barang::find($id);
+        $barang->update($request->all());
+        // return redirect()->route('$barang.index')->with('success', 'Siswa updated successfully');
+        return response()->json($barang);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Barang $id)
+    public function destroy($id)
     {
-        $barang->delete();
-        return redirect()->route('barang.index')
-->with('success', 'Siswa deleted successfully');
+        $barang = barang::destroy($id);
+        // return redirect()->route('$barang.index')->with('success', 'Siswa deleted successfully');
+        return response()->json($barang);
     }
 }
