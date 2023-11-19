@@ -24,3 +24,9 @@ Route::post('/siswa', [SiswaController::class, 'store']);
 Route::get('/siswa/{id}', [SiswaController::class, 'show']);
 Route::put('/siswa/{id}', [SiswaController::class, 'update']);
 Route::delete('/siswa/{id}', [SiswaController::class, 'destroy']);
+
+Route::get('/barang', [barangController::class, 'index']);
+Route::post('/barang', [barangController::class, 'store']);
+Route::get('/barang/{id}', [barangController::class, 'show']);
+Route::put('/barang/{id}', [barangController::class, 'update']);
+Route::delete('/barang/{id}', [barangController::class, 'destroy']);
