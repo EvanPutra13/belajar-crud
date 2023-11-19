@@ -36,8 +36,8 @@ class BarangController extends Controller
             'Kode_barang'=> 'required|unique:Kode_barang,Nama_barang',
             'Nama_barang' =>'required',
             'Harga' =>'required',
-            'jumlah'=>'required',
-            'merek' =>'required',
+            'Jumlah'=>'required',
+            'Merek' =>'required',
 
 
         ]);
@@ -72,9 +72,9 @@ class BarangController extends Controller
         $request->validate([
             'Kode_barang' => 'required',
             'Nama_barang' => 'required',
-            'harga' => 'required',
-            'jumlah' => 'required',
-            'merek' => 'required',
+            'Harga' => 'required',
+            'Jumlah' => 'required',
+            'Merek' => 'required',
         ]);
         $barang = barang::find($id);
         $barang->update($request->all());

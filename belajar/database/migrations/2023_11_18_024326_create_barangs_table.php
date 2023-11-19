@@ -15,8 +15,8 @@ return new class extends Migration
             $table->string ('Kode_barang')-> primary();
             $table->string ('Nama_barang');
             $table->integer ('Harga');
-            $table->string ('jumlah');
-            $table->string ('merek');
+            $table->string ('Jumlah');
+            $table->string ('Merek');
 
             $table->timestamps();
         });
