@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\BarangController;
+use App\Models\guru;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,9 @@ Route::post('/barang', [barangController::class, 'store']);
 Route::get('/barang/{id}', [barangController::class, 'show']);
 Route::put('/barang/{id}', [barangController::class, 'update']);
 Route::delete('/barang/{id}', [barangController::class, 'destroy']);
+
+Route::get('/guru', [GuruController::class, 'index']);
+Route::post('/guru', [GuruController::class, 'store']);
+Route::get('/guru/{id}', [GuruController::class, 'show']);
+Route::put('/guru/{id}', [GuruController::class, 'update']);
+Route::delete('/guru/{id}', [GuruController::class, 'destroy']);
